@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+adel:
+  id: 1
+  name: Adel
+  graveyard: Abdelli
+
+eymane:
+  id: 2
+  name: Eymane
+  graveyard: Abdelli
