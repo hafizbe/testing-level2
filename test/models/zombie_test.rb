@@ -1,38 +1,28 @@
   require 'test_helper'
+  require 'mocha/setup'
 
 class ZombieTest < ActiveSupport::TestCase
-  
-  test "Invalid without a name" do 
-  	z = Zombie.new 
-  	assert !z.valid?, "Name is not being validated" 
+
+  def setup
+    @zombie = zombies(:adel)
   end
 
-  test "Valid with all attributes" do
-  	z = zombies(:adel)
+  test "Decapitate should set status dead again " do
 
-  	assert z.valid? , "Zombie was not valid"
+    @zombie.weapon.stubs(:slice).returns("{Adel}")
+    @zombie.decapitate
+    assert_equal "dead again", @zombie.status
   end
 
-  test "Invalid name gives errors messages" do 
-  	z = zombies(:adel)
-  	z.name = nil
-  	z.valid?
-  	assert_match /can't be blank/, z.errors[:name].join(",")
+  test "decapitate should call slice method" do
+    @zombie.weapon.expects(:slice)
+    @zombie.decapitate
   end
 
-  test "Can generate avatar url" do
-  	z = zombies(:adel)
-  	assert_equal "http://zombietar.com/#{z.id}.jpg" , z.avatar_url, "avatar_url n'est pas egal"
+  test " geolocate calls the Zoogle graveyard locator" do
+    Zoogle.expects(:graveyard_locator).with(@zombie.graveyard).returns({:latitude => 1, :longitude => 2})
+    @zombie.geolocate
   end
 
-  test "Should respond to tweet" do
-  	z = zombies(:adel)
-  	assert_respond_to z, :tweets, "No methods tweets for zombie object"
-  end
-
-  test "Should contains only tweet that belong to zombie " do
-  	z = zombies(:adel)
-  	assert z.tweets.all? {|t| t.zombie == z}
-  end
 
 end

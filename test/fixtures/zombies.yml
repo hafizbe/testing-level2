@@ -4,8 +4,12 @@ adel:
   id: 1
   name: Adel
   graveyard: Abdelli
+  weapon_id: 1
+  status:
 
 eymane:
   id: 2
   name: Eymane
   graveyard: Abdelli
+  weapon_id: 1
+  status:
