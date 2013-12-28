@@ -19,9 +19,14 @@ class ZombieTest < ActiveSupport::TestCase
     @zombie.decapitate
   end
 
-  test " geolocate calls the Zoogle graveyard locator" do
+  test "Geolocate calls the Zoogle graveyard locator" do
     Zoogle.expects(:graveyard_locator).with(@zombie.graveyard).returns({:latitude => 1, :longitude => 2})
     @zombie.geolocate
+  end
+
+  test "Geolocate returns properly formatted lat, long" do
+    Zoogle.stubs(:graveyard_locator).with(@zombie.graveyard).returns({:latitude => 2, :longitude => 3})
+    assert_equal "2, 3", @zombie.geolocate
   end
 
 

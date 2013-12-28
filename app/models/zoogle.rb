@@ -1,5 +1,5 @@
 class Zoogle < ActiveRecord::Base
   def self.graveyard_locator(graveyard)
-    {:latitude => 5, :longitude => 10}
+    {:latitude => 2, :longitude => 10}
   end
 end
